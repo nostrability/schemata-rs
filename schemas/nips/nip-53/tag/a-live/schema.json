@@ -1,0 +1,36 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "allOf": [
+    {
+      "allOf": [
+        {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": false
+        }
+      ]
+    },
+    {
+      "type": "array",
+      "minItems": 2,
+      "items": [
+        {
+          "const": "a"
+        },
+        {
+          "type": "string",
+          "pattern": "^30311:[a-f0-9]{64}:.+$"
+        },
+        {
+          "type": "string",
+          "pattern": "^(ws://|wss://).+$"
+        }
+      ],
+      "additionalItems": true
+    }
+  ],
+  "$id": "https://nostrability.github.io/schemata/tag/a-live.json"
+}

@@ -1,0 +1,37 @@
+{
+  "allOf": [
+    {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "allOf": [
+        {
+          "allOf": [
+            {
+              "$schema": "http://json-schema.org/draft-07/schema#",
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "uniqueItems": false
+            }
+          ]
+        },
+        {
+          "type": "array",
+          "description": "Content warning tag (NIP-36). Optional reason as second element.",
+          "minItems": 1,
+          "items": [
+            {
+              "const": "content-warning"
+            },
+            {
+              "type": "string",
+              "title": "reason",
+              "description": "Optional human-readable reason for the content warning"
+            }
+          ],
+          "additionalItems": false
+        }
+      ]
+    }
+  ]
+}

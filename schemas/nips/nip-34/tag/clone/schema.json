@@ -1,0 +1,36 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "allOf": [
+    {
+      "allOf": [
+        {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": false
+        }
+      ]
+    },
+    {
+      "type": "array",
+      "description": "Git clone endpoints",
+      "minItems": 2,
+      "items": [
+        {
+          "const": "clone"
+        },
+        {
+          "type": "string",
+          "pattern": "^(([a-z][a-z0-9+\\.-]*://)|git@)[^\\s]+$"
+        }
+      ],
+      "additionalItems": {
+        "type": "string",
+        "pattern": "^(([a-z][a-z0-9+\\.-]*://)|git@)[^\\s]+$"
+      }
+    }
+  ],
+  "$id": "https://nostrability.github.io/schemata/tag/clone.json"
+}
