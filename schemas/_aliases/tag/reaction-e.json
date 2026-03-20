@@ -1,0 +1,60 @@
+{
+  "allOf": [
+    {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "reactionETag",
+      "description": "Event reference tag for reaction events (NIP-25)",
+      "allOf": [
+        {
+          "allOf": [
+            {
+              "$schema": "http://json-schema.org/draft-07/schema#",
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "uniqueItems": false
+            }
+          ]
+        },
+        {
+          "type": "array",
+          "minItems": 2,
+          "items": [
+            {
+              "const": "e"
+            },
+            {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$"
+            }
+          ],
+          "additionalItems": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^(ws://|wss://).+$"
+              },
+              {
+                "allOf": [
+                  {
+                    "$schema": "http://json-schema.org/draft-07/schema#",
+                    "type": "string",
+                    "pattern": "^[a-f0-9]{64}$"
+                  }
+                ]
+              },
+              {
+                "type": "string",
+                "minLength": 1
+              }
+            ]
+          },
+          "errorMessage": {
+            "minItems": "e tag must include the event id"
+          }
+        }
+      ]
+    }
+  ]
+}

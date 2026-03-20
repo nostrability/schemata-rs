@@ -1,0 +1,40 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "allOf": [
+    {
+      "allOf": [
+        {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": false
+        }
+      ]
+    },
+    {
+      "type": "array",
+      "description": "Git reference state entry",
+      "minItems": 3,
+      "items": [
+        {
+          "const": "ref"
+        },
+        {
+          "type": "string",
+          "pattern": "^refs\\/(heads|tags)\\/[^\\s]+$"
+        },
+        {
+          "type": "string",
+          "pattern": "^[a-f0-9]{7,40}$"
+        }
+      ],
+      "additionalItems": {
+        "type": "string",
+        "pattern": "^[a-f0-9]{7,40}$"
+      }
+    }
+  ],
+  "$id": "https://nostrability.github.io/schemata/tag/ref.json"
+}

@@ -1,0 +1,398 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "kind443",
+  "description": "Marmot KeyPackage event (MIP-00)",
+  "allOf": [
+    {
+      "allOf": [
+        {
+          "$schema": "http://json-schema.org/draft-07/schema",
+          "type": "object",
+          "properties": {
+            "content": {
+              "type": "string",
+              "errorMessage": "content must be a string",
+              "description": "The content of the note"
+            },
+            "created_at": {
+              "type": "integer",
+              "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
+              "description": "The timestamp of the note creation"
+            },
+            "id": {
+              "allOf": [
+                {
+                  "allOf": [
+                    {
+                      "$schema": "http://json-schema.org/draft-07/schema#",
+                      "type": "string",
+                      "pattern": "^[a-f0-9]{64}$"
+                    }
+                  ]
+                }
+              ],
+              "errorMessage": "id must be a valid hash",
+              "description": "The id is a hash derived as specified in NIP-01"
+            },
+            "kind": {
+              "type": "integer"
+            },
+            "pubkey": {
+              "allOf": [
+                {
+                  "allOf": [
+                    {
+                      "$schema": "http://json-schema.org/draft-07/schema#",
+                      "type": "string",
+                      "pattern": "^[a-f0-9]{64}$"
+                    }
+                  ]
+                }
+              ],
+              "errorMessage": "pubkey must be a secp256k1 public key",
+              "description": "The public key of the note's author"
+            },
+            "sig": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{128}$",
+              "errorMessage": "sig must be 128 lowercase hex characters (64 bytes)",
+              "description": "The cryptographic signature of the note"
+            },
+            "tags": {
+              "type": "array",
+              "errorMessage": "tags must be an array of valid tag tuples",
+              "description": "The tags of the note",
+              "items": {
+                "allOf": [
+                  {
+                    "$schema": "http://json-schema.org/draft-07/schema#",
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "uniqueItems": false
+                  }
+                ]
+              }
+            }
+          },
+          "required": [
+            "content",
+            "created_at",
+            "id",
+            "kind",
+            "pubkey",
+            "sig",
+            "tags"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "const": 443,
+          "description": "Kind number reserved for Marmot KeyPackage events"
+        },
+        "content": {
+          "type": "string",
+          "pattern": "^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$",
+          "minLength": 48,
+          "errorMessage": "content must be a base64-encoded MLS KeyPackage bundle",
+          "description": "Base64-encoded TLS-serialized MLS KeyPackageBundle"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "allOf": [
+              {
+                "$schema": "http://json-schema.org/draft-07/schema#",
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "uniqueItems": false
+              }
+            ]
+          },
+          "minItems": 6,
+          "allOf": [
+            {
+              "contains": {
+                "allOf": [
+                  {
+                    "$schema": "http://json-schema.org/draft-07/schema#",
+                    "allOf": [
+                      {
+                        "allOf": [
+                          {
+                            "$schema": "http://json-schema.org/draft-07/schema#",
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            },
+                            "uniqueItems": false
+                          }
+                        ]
+                      },
+                      {
+                        "type": "array",
+                        "minItems": 2,
+                        "maxItems": 2,
+                        "items": [
+                          {
+                            "const": "mls_protocol_version"
+                          },
+                          {
+                            "type": "string",
+                            "pattern": "^[0-9]+(\\.[0-9]+)*$",
+                            "description": "MLS protocol version identifier"
+                          }
+                        ],
+                        "additionalItems": false
+                      }
+                    ]
+                  }
+                ]
+              }
+            },
+            {
+              "contains": {
+                "allOf": [
+                  {
+                    "$schema": "http://json-schema.org/draft-07/schema#",
+                    "title": "MLS Ciphersuite",
+                    "allOf": [
+                      {
+                        "allOf": [
+                          {
+                            "$schema": "http://json-schema.org/draft-07/schema#",
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            },
+                            "uniqueItems": false
+                          }
+                        ]
+                      },
+                      {
+                        "type": "array",
+                        "minItems": 2,
+                        "maxItems": 2,
+                        "items": [
+                          {
+                            "const": "mls_ciphersuite"
+                          },
+                          {
+                            "type": "string",
+                            "pattern": "^0x[0-9a-f]{4}$",
+                            "description": "MLS ciphersuite identifier in 0xXXXX format"
+                          }
+                        ],
+                        "additionalItems": false
+                      }
+                    ]
+                  }
+                ]
+              }
+            },
+            {
+              "contains": {
+                "allOf": [
+                  {
+                    "$schema": "http://json-schema.org/draft-07/schema#",
+                    "title": "MLS Extensions",
+                    "allOf": [
+                      {
+                        "allOf": [
+                          {
+                            "$schema": "http://json-schema.org/draft-07/schema#",
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            },
+                            "uniqueItems": false
+                          }
+                        ]
+                      },
+                      {
+                        "type": "array",
+                        "minItems": 3,
+                        "uniqueItems": true,
+                        "items": [
+                          {
+                            "const": "mls_extensions"
+                          },
+                          {
+                            "type": "string",
+                            "pattern": "^0x[0-9a-f]{4}$",
+                            "description": "MLS extension identifier"
+                          }
+                        ],
+                        "additionalItems": {
+                          "type": "string",
+                          "pattern": "^0x[0-9a-f]{4}$"
+                        },
+                        "allOf": [
+                          {
+                            "contains": {
+                              "const": "0xf2ee"
+                            },
+                            "errorMessage": {
+                              "contains": "mls_extensions must include 0xf2ee (marmot_group_data, MIP-01)"
+                            }
+                          },
+                          {
+                            "contains": {
+                              "const": "0x000a"
+                            },
+                            "errorMessage": {
+                              "contains": "mls_extensions must include 0x000a (last_resort, MIP-00)"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            },
+            {
+              "contains": {
+                "allOf": [
+                  {
+                    "$schema": "http://json-schema.org/draft-07/schema#",
+                    "allOf": [
+                      {
+                        "allOf": [
+                          {
+                            "$schema": "http://json-schema.org/draft-07/schema#",
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            },
+                            "uniqueItems": false
+                          }
+                        ]
+                      },
+                      {
+                        "type": "array",
+                        "minItems": 2,
+                        "items": [
+                          {
+                            "const": "relays"
+                          },
+                          {
+                            "type": "string",
+                            "pattern": "^(ws://|wss://).+$"
+                          }
+                        ],
+                        "additionalItems": true
+                      }
+                    ]
+                  }
+                ]
+              }
+            },
+            {
+              "contains": {
+                "allOf": [
+                  {
+                    "$schema": "http://json-schema.org/draft-07/schema#",
+                    "title": "Encoding",
+                    "allOf": [
+                      {
+                        "allOf": [
+                          {
+                            "$schema": "http://json-schema.org/draft-07/schema#",
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            },
+                            "uniqueItems": false
+                          }
+                        ]
+                      },
+                      {
+                        "type": "array",
+                        "minItems": 2,
+                        "maxItems": 2,
+                        "items": [
+                          {
+                            "const": "encoding"
+                          },
+                          {
+                            "type": "string",
+                            "enum": [
+                              "base64"
+                            ],
+                            "description": "Content encoding format"
+                          }
+                        ],
+                        "additionalItems": false
+                      }
+                    ]
+                  }
+                ]
+              }
+            },
+            {
+              "contains": {
+                "allOf": [
+                  {
+                    "$schema": "http://json-schema.org/draft-07/schema#",
+                    "title": "KeyPackageRef",
+                    "allOf": [
+                      {
+                        "allOf": [
+                          {
+                            "$schema": "http://json-schema.org/draft-07/schema#",
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            },
+                            "uniqueItems": false
+                          }
+                        ]
+                      },
+                      {
+                        "type": "array",
+                        "minItems": 2,
+                        "maxItems": 2,
+                        "items": [
+                          {
+                            "const": "i"
+                          },
+                          {
+                            "type": "string",
+                            "pattern": "^[a-f0-9]{64}$",
+                            "description": "Hex-encoded KeyPackageRef (SHA-256 hash of the KeyPackage)"
+                          }
+                        ],
+                        "additionalItems": false,
+                        "errorMessage": {
+                          "minItems": "i tag must have exactly two elements: ['i', <KeyPackageRef>]",
+                          "maxItems": "i tag must have exactly two elements: ['i', <KeyPackageRef>]"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            }
+          ],
+          "errorMessage": {
+            "contains": "tags must include mls_protocol_version, mls_ciphersuite, mls_extensions, relays, encoding, and i tags"
+          }
+        }
+      },
+      "required": [
+        "kind",
+        "tags"
+      ]
+    }
+  ],
+  "$id": "https://nostrability.github.io/schemata/note/kind/443.json"
+}

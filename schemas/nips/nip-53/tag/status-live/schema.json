@@ -1,0 +1,36 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "allOf": [
+    {
+      "allOf": [
+        {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": false
+        }
+      ]
+    },
+    {
+      "type": "array",
+      "minItems": 2,
+      "items": [
+        {
+          "const": "status"
+        },
+        {
+          "type": "string",
+          "enum": [
+            "planned",
+            "live",
+            "ended"
+          ]
+        }
+      ],
+      "additionalItems": true
+    }
+  ],
+  "$id": "https://nostrability.github.io/schemata/tag/status-live.json"
+}

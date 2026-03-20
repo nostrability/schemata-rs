@@ -1,0 +1,34 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "allOf": [
+    {
+      "allOf": [
+        {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": false
+        }
+      ]
+    },
+    {
+      "type": "array",
+      "minItems": 2,
+      "items": [
+        {
+          "const": "hand"
+        },
+        {
+          "type": "string",
+          "enum": [
+            "1"
+          ]
+        }
+      ],
+      "additionalItems": true
+    }
+  ],
+  "$id": "https://nostrability.github.io/schemata/tag/hand.json"
+}

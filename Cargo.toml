@@ -1,0 +1,11 @@
+[package]
+name = "schemata-rs"
+version = "0.1.0"
+edition = "2021"
+description = "Nostr protocol JSON schemas — data crate"
+license = "GPL-3.0-or-later"
+
+[dependencies]
+serde_json = "1"
+include_dir = "0.7"
+once_cell = "1"

@@ -1,0 +1,82 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "allOf": [
+    {
+      "allOf": [
+        {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": false
+        }
+      ]
+    }
+  ],
+  "oneOf": [
+    {
+      "type": "array",
+      "minItems": 4,
+      "maxItems": 5,
+      "items": [
+        {
+          "const": "e"
+        },
+        {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^(ws://|wss://).+$"
+            },
+            {
+              "type": "string",
+              "const": ""
+            }
+          ]
+        },
+        {
+          "type": "string",
+          "enum": [
+            "reply",
+            "root"
+          ]
+        },
+        {
+          "allOf": [
+            {
+              "$schema": "http://json-schema.org/draft-07/schema#",
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$"
+            }
+          ]
+        }
+      ],
+      "additionalItems": false
+    },
+    {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 3,
+      "items": [
+        {
+          "const": "e"
+        },
+        {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        {
+          "type": "string",
+          "pattern": "^(ws://|wss://).+$"
+        }
+      ],
+      "additionalItems": false
+    }
+  ],
+  "$id": "https://nostrability.github.io/schemata/tag/e.json"
+}

@@ -1,0 +1,57 @@
+{
+  "allOf": [
+    {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "allOf": [
+        {
+          "allOf": [
+            {
+              "$schema": "http://json-schema.org/draft-07/schema#",
+              "allOf": [
+                {
+                  "allOf": [
+                    {
+                      "$schema": "http://json-schema.org/draft-07/schema#",
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "uniqueItems": false
+                    }
+                  ]
+                },
+                {
+                  "type": "array",
+                  "minItems": 2,
+                  "items": [
+                    {
+                      "const": "relay"
+                    },
+                    {
+                      "type": "string",
+                      "pattern": "^(ws://|wss://).+$"
+                    }
+                  ],
+                  "additionalItems": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "array",
+          "description": "Preferred relay endpoint for receiving direct messages",
+          "items": [
+            {
+              "const": "relay"
+            },
+            {
+              "type": "string",
+              "pattern": "^wss?://[a-zA-Z0-9.-]+(?::[0-9]+)?(?:/.*)?$"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
