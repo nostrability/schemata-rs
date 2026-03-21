@@ -1,0 +1,67 @@
+name: Update schemas
+
+on:
+  repository_dispatch:
+    types: [schema-update]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Schemata release tag (e.g. v0.2.5)'
+        required: true
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Resolve tag
+        id: tag
+        run: |
+          TAG="${{ github.event.client_payload.tag || github.event.inputs.tag || '' }}"
+          if [ -z "$TAG" ]; then
+            TAG=$(curl -sI https://github.com/nostrability/schemata/releases/latest | grep -i '^location:' | sed 's|.*/||' | tr -d '\r\n')
+          fi
+          echo "tag=$TAG" >> $GITHUB_OUTPUT
+          echo "Resolved tag: $TAG"
+
+      - name: Download and vendor schemas
+        run: |
+          TAG="${{ steps.tag.outputs.tag }}"
+          TMPDIR=$(mktemp -d)
+
+          curl -sL "https://github.com/nostrability/schemata/releases/download/${TAG}/schemata-${TAG}.zip" -o "$TMPDIR/schemata.zip"
+          unzip -qo "$TMPDIR/schemata.zip" -d "$TMPDIR/extracted"
+
+          # Clean previous schemas
+          rm -rf schemas
+          mkdir -p schemas
+
+          # Copy nips/ and mips/ as-is
+          cp -r "$TMPDIR/extracted/nips" schemas/nips
+          cp -r "$TMPDIR/extracted/mips" schemas/mips
+
+          # Copy @/ → schemas/_aliases/ (rename for Rust filesystem compatibility)
+          cp -r "$TMPDIR/extracted/@" schemas/_aliases
+
+          # Write version file
+          echo "$TAG" > schemas/SCHEMATA_VERSION
+
+          rm -rf "$TMPDIR"
+
+          echo "Vendored schemas from $TAG"
+          echo "  nips:    $(find schemas/nips -name '*.json' | wc -l | tr -d ' ') files"
+          echo "  mips:    $(find schemas/mips -name '*.json' | wc -l | tr -d ' ') files"
+          echo "  aliases: $(find schemas/_aliases -name '*.json' | wc -l | tr -d ' ') files"
+
+      - name: Commit and push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "chore: update schemas to ${{ steps.tag.outputs.tag }}"
+            git push
+          fi
