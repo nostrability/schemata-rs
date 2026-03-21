@@ -94,7 +94,8 @@
       "properties": {
         "kind": {
           "type": "integer",
-          "const": 9802
+          "const": 9802,
+          "errorMessage": "kind must equal 9802"
         },
         "content": {
           "type": "string",

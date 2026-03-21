@@ -94,6 +94,7 @@
       "properties": {
         "kind": {
           "const": 443,
+          "errorMessage": "kind must equal 443",
           "description": "Kind number reserved for Marmot KeyPackage events"
         },
         "content": {
@@ -156,6 +157,9 @@
                     ]
                   }
                 ]
+              },
+              "errorMessage": {
+                "contains": "tags must include an mls_protocol_version tag"
               }
             },
             {
@@ -196,6 +200,9 @@
                     ]
                   }
                 ]
+              },
+              "errorMessage": {
+                "contains": "tags must include an mls_ciphersuite tag"
               }
             },
             {
@@ -257,6 +264,9 @@
                     ]
                   }
                 ]
+              },
+              "errorMessage": {
+                "contains": "tags must include an mls_extensions tag"
               }
             },
             {
@@ -294,6 +304,9 @@
                     ]
                   }
                 ]
+              },
+              "errorMessage": {
+                "contains": "tags must include a relays tag"
               }
             },
             {
@@ -336,6 +349,9 @@
                     ]
                   }
                 ]
+              },
+              "errorMessage": {
+                "contains": "tags must include an encoding tag"
               }
             },
             {
@@ -380,12 +396,12 @@
                     ]
                   }
                 ]
+              },
+              "errorMessage": {
+                "contains": "tags must include an i tag"
               }
             }
-          ],
-          "errorMessage": {
-            "contains": "tags must include mls_protocol_version, mls_ciphersuite, mls_extensions, relays, encoding, and i tags"
-          }
+          ]
         }
       },
       "required": [

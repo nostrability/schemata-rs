@@ -92,7 +92,8 @@
       "type": "object",
       "properties": {
         "kind": {
-          "const": 31990
+          "const": 31990,
+          "errorMessage": "kind must equal 31990"
         },
         "tags": {
           "allOf": [
@@ -134,6 +135,9 @@
                     ]
                   }
                 ]
+              },
+              "errorMessage": {
+                "contains": "tags must include a d tag"
               }
             },
             {
@@ -175,6 +179,9 @@
                     ]
                   }
                 ]
+              },
+              "errorMessage": {
+                "contains": "tags must include a k tag identifying a supported event kind"
               }
             }
           ]

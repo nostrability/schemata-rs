@@ -93,7 +93,8 @@
       "type": "object",
       "properties": {
         "kind": {
-          "const": 30313
+          "const": 30313,
+          "errorMessage": "kind must equal 30313"
         },
         "tags": {
           "type": "array",
@@ -145,6 +146,9 @@
                     ]
                   }
                 ]
+              },
+              "errorMessage": {
+                "contains": "tags must include a d tag"
               }
             },
             {
@@ -186,6 +190,9 @@
                     ]
                   }
                 ]
+              },
+              "errorMessage": {
+                "contains": "tags must include an a tag referencing a room (kind 30312)"
               }
             },
             {
@@ -222,6 +229,9 @@
                     ]
                   }
                 ]
+              },
+              "errorMessage": {
+                "contains": "tags must include a title tag"
               }
             },
             {
@@ -259,6 +269,9 @@
                     ]
                   }
                 ]
+              },
+              "errorMessage": {
+                "contains": "tags must include a starts tag"
               }
             },
             {
@@ -300,12 +313,12 @@
                     ]
                   }
                 ]
+              },
+              "errorMessage": {
+                "contains": "tags must include a status tag"
               }
             }
-          ],
-          "errorMessage": {
-            "contains": "tags must include required tags: d, a (room reference), title, starts, status"
-          }
+          ]
         }
       },
       "required": [

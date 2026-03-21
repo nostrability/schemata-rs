@@ -1,0 +1,33 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "allOf": [
+    {
+      "allOf": [
+        {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": false
+        }
+      ]
+    },
+    {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 2,
+      "items": [
+        {
+          "const": "z"
+        },
+        {
+          "type": "string",
+          "const": "order"
+        }
+      ],
+      "additionalItems": false
+    }
+  ],
+  "$id": "https://nostrability.github.io/schemata/tag/z.json"
+}

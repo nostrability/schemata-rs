@@ -1,0 +1,310 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "NIP-90 DVM Job Result (kind 6000)",
+  "description": "Data Vending Machine job result for text extraction (NIP-90)",
+  "allOf": [
+    {
+      "allOf": [
+        {
+          "$schema": "http://json-schema.org/draft-07/schema",
+          "type": "object",
+          "properties": {
+            "content": {
+              "type": "string",
+              "errorMessage": "content must be a string",
+              "description": "The content of the note"
+            },
+            "created_at": {
+              "type": "integer",
+              "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
+              "description": "The timestamp of the note creation"
+            },
+            "id": {
+              "allOf": [
+                {
+                  "allOf": [
+                    {
+                      "$schema": "http://json-schema.org/draft-07/schema#",
+                      "type": "string",
+                      "pattern": "^[a-f0-9]{64}$"
+                    }
+                  ]
+                }
+              ],
+              "errorMessage": "id must be a valid hash",
+              "description": "The id is a hash derived as specified in NIP-01"
+            },
+            "kind": {
+              "type": "integer"
+            },
+            "pubkey": {
+              "allOf": [
+                {
+                  "allOf": [
+                    {
+                      "$schema": "http://json-schema.org/draft-07/schema#",
+                      "type": "string",
+                      "pattern": "^[a-f0-9]{64}$"
+                    }
+                  ]
+                }
+              ],
+              "errorMessage": "pubkey must be a secp256k1 public key",
+              "description": "The public key of the note's author"
+            },
+            "sig": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{128}$",
+              "errorMessage": "sig must be 128 lowercase hex characters (64 bytes)",
+              "description": "The cryptographic signature of the note"
+            },
+            "tags": {
+              "type": "array",
+              "errorMessage": "tags must be an array of valid tag tuples",
+              "description": "The tags of the note",
+              "items": {
+                "allOf": [
+                  {
+                    "$schema": "http://json-schema.org/draft-07/schema#",
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "uniqueItems": false
+                  }
+                ]
+              }
+            }
+          },
+          "required": [
+            "content",
+            "created_at",
+            "id",
+            "kind",
+            "pubkey",
+            "sig",
+            "tags"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "const": 6000,
+          "description": "Kind 6000 identifies a text extraction job result",
+          "errorMessage": "kind must equal 6000"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "allOf": [
+              {
+                "$schema": "http://json-schema.org/draft-07/schema#",
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "uniqueItems": false
+              }
+            ]
+          },
+          "minItems": 3,
+          "errorMessage": {
+            "minItems": "tags must contain at least three tags (e, p, request)"
+          },
+          "allOf": [
+            {
+              "contains": {
+                "allOf": [
+                  {
+                    "$schema": "http://json-schema.org/draft-07/schema#",
+                    "allOf": [
+                      {
+                        "allOf": [
+                          {
+                            "$schema": "http://json-schema.org/draft-07/schema#",
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            },
+                            "uniqueItems": false
+                          }
+                        ]
+                      }
+                    ],
+                    "oneOf": [
+                      {
+                        "type": "array",
+                        "minItems": 4,
+                        "maxItems": 5,
+                        "items": [
+                          {
+                            "const": "e"
+                          },
+                          {
+                            "type": "string",
+                            "pattern": "^[a-f0-9]{64}$"
+                          },
+                          {
+                            "anyOf": [
+                              {
+                                "type": "string",
+                                "pattern": "^(ws://|wss://).+$"
+                              },
+                              {
+                                "type": "string",
+                                "const": ""
+                              }
+                            ]
+                          },
+                          {
+                            "type": "string",
+                            "enum": [
+                              "reply",
+                              "root"
+                            ]
+                          },
+                          {
+                            "allOf": [
+                              {
+                                "$schema": "http://json-schema.org/draft-07/schema#",
+                                "type": "string",
+                                "pattern": "^[a-f0-9]{64}$"
+                              }
+                            ]
+                          }
+                        ],
+                        "additionalItems": false
+                      },
+                      {
+                        "type": "array",
+                        "minItems": 2,
+                        "maxItems": 3,
+                        "items": [
+                          {
+                            "const": "e"
+                          },
+                          {
+                            "type": "string",
+                            "pattern": "^[a-f0-9]{64}$"
+                          },
+                          {
+                            "type": "string",
+                            "pattern": "^(ws://|wss://).+$"
+                          }
+                        ],
+                        "additionalItems": false
+                      }
+                    ]
+                  }
+                ]
+              },
+              "errorMessage": {
+                "contains": "tags must include an e tag referencing the job request event"
+              }
+            },
+            {
+              "contains": {
+                "allOf": [
+                  {
+                    "$schema": "http://json-schema.org/draft-07/schema#",
+                    "allOf": [
+                      {
+                        "allOf": [
+                          {
+                            "$schema": "http://json-schema.org/draft-07/schema#",
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            },
+                            "uniqueItems": false
+                          }
+                        ]
+                      },
+                      {
+                        "type": "array",
+                        "minItems": 2,
+                        "items": [
+                          {
+                            "const": "p"
+                          },
+                          {
+                            "allOf": [
+                              {
+                                "$schema": "http://json-schema.org/draft-07/schema#",
+                                "type": "string",
+                                "pattern": "^[a-f0-9]{64}$"
+                              }
+                            ]
+                          },
+                          {
+                            "title": "petname",
+                            "type": "string"
+                          }
+                        ],
+                        "additionalItems": false
+                      }
+                    ]
+                  }
+                ]
+              },
+              "errorMessage": {
+                "contains": "tags must include a p tag with the customer's pubkey"
+              }
+            },
+            {
+              "contains": {
+                "allOf": [
+                  {
+                    "$schema": "http://json-schema.org/draft-07/schema#",
+                    "allOf": [
+                      {
+                        "allOf": [
+                          {
+                            "$schema": "http://json-schema.org/draft-07/schema#",
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            },
+                            "uniqueItems": false
+                          }
+                        ]
+                      },
+                      {
+                        "type": "array",
+                        "minItems": 2,
+                        "maxItems": 2,
+                        "items": [
+                          {
+                            "const": "request"
+                          },
+                          {
+                            "type": "string",
+                            "minLength": 1,
+                            "description": "JSON-encoded original job request event"
+                          }
+                        ],
+                        "additionalItems": false
+                      }
+                    ]
+                  }
+                ]
+              },
+              "errorMessage": {
+                "contains": "tags must include a request tag with the original job request JSON"
+              }
+            }
+          ]
+        }
+      },
+      "required": [
+        "kind",
+        "tags"
+      ]
+    }
+  ],
+  "$id": "https://nostrability.github.io/schemata/note/kind/6000.json"
+}

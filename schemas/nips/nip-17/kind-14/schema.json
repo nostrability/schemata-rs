@@ -85,7 +85,8 @@
       "properties": {
         "kind": {
           "const": 14,
-          "description": "Kind 14 identifies an unsigned private direct message"
+          "description": "Kind 14 identifies an unsigned private direct message",
+          "errorMessage": "kind must equal 14"
         },
         "id": {
           "allOf": [
@@ -179,12 +180,12 @@
                     ]
                   }
                 ]
+              },
+              "errorMessage": {
+                "contains": "tags must include a p tag"
               }
             }
-          ],
-          "errorMessage": {
-            "contains": "tags must include at least one p tag identifying a receiver"
-          }
+          ]
         }
       },
       "required": [

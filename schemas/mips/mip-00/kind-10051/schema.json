@@ -94,6 +94,7 @@
       "properties": {
         "kind": {
           "const": 10051,
+          "errorMessage": "kind must equal 10051",
           "description": "Kind number for publishing relays that host Marmot KeyPackages"
         },
         "tags": {

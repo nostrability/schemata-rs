@@ -92,7 +92,8 @@
       "type": "object",
       "properties": {
         "kind": {
-          "const": 10063
+          "const": 10063,
+          "errorMessage": "kind must equal 10063"
         },
         "tags": {
           "type": "array",

@@ -132,6 +132,9 @@
                     ]
                   }
                 ]
+              },
+              "errorMessage": {
+                "contains": "tags must include a title tag"
               }
             },
             {
@@ -314,6 +317,9 @@
                     }
                   }
                 ]
+              },
+              "errorMessage": {
+                "contains": "tags must include an imeta tag with image metadata"
               }
             }
           ]

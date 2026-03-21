@@ -93,7 +93,8 @@
       "type": "object",
       "properties": {
         "kind": {
-          "const": 30023
+          "const": 30023,
+          "errorMessage": "kind must equal 30023"
         },
         "tags": {
           "type": "array",
@@ -145,6 +146,9 @@
                     ]
                   }
                 ]
+              },
+              "errorMessage": {
+                "contains": "tags must include a d tag"
               }
             },
             {
@@ -181,12 +185,12 @@
                     ]
                   }
                 ]
+              },
+              "errorMessage": {
+                "contains": "tags must include a title tag"
               }
             }
-          ],
-          "errorMessage": {
-            "contains": "tags must include required tags: d, title"
-          }
+          ]
         }
       },
       "required": [

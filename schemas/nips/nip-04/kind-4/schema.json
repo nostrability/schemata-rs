@@ -93,7 +93,8 @@
       "type": "object",
       "properties": {
         "kind": {
-          "const": 4
+          "const": 4,
+          "errorMessage": "kind must equal 4"
         },
         "content": {
           "type": "string",
@@ -160,6 +161,9 @@
                     ]
                   }
                 ]
+              },
+              "errorMessage": {
+                "contains": "tags must include a p tag"
               }
             },
             {
@@ -194,10 +198,7 @@
                 }
               ]
             }
-          ],
-          "errorMessage": {
-            "contains": "tags must include a p tag identifying the intended recipient"
-          }
+          ]
         }
       },
       "required": [

@@ -92,7 +92,8 @@
       "type": "object",
       "properties": {
         "kind": {
-          "const": 31922
+          "const": 31922,
+          "errorMessage": "kind must equal 31922"
         },
         "tags": {
           "type": "array",
@@ -131,6 +132,9 @@
                     ]
                   }
                 ]
+              },
+              "errorMessage": {
+                "contains": "tags must include a d tag"
               }
             },
             {
@@ -167,6 +171,9 @@
                     ]
                   }
                 ]
+              },
+              "errorMessage": {
+                "contains": "tags must include a title tag"
               }
             },
             {
@@ -199,6 +206,9 @@
                     "additionalItems": true
                   }
                 ]
+              },
+              "errorMessage": {
+                "contains": "tags must include a start tag with a date in YYYY-MM-DD format"
               }
             }
           ]

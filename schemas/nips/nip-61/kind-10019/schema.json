@@ -92,7 +92,8 @@
       "type": "object",
       "properties": {
         "kind": {
-          "const": 10019
+          "const": 10019,
+          "errorMessage": "kind must equal 10019"
         },
         "tags": {
           "type": "array",
@@ -144,6 +145,9 @@
                     ]
                   }
                 ]
+              },
+              "errorMessage": {
+                "contains": "tags must include a relay tag"
               }
             },
             {
@@ -185,6 +189,9 @@
                     ]
                   }
                 ]
+              },
+              "errorMessage": {
+                "contains": "tags must include a mint tag"
               }
             },
             {
@@ -222,6 +229,9 @@
                     ]
                   }
                 ]
+              },
+              "errorMessage": {
+                "contains": "tags must include a pubkey tag for receiving nutzaps"
               }
             }
           ]

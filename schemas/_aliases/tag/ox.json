@@ -17,8 +17,8 @@
         },
         {
           "type": "array",
-          "description": "Checksum of the original file prior to encryption",
           "minItems": 2,
+          "maxItems": 2,
           "items": [
             {
               "const": "ox"

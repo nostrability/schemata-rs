@@ -1,0 +1,36 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Encryption tag",
+  "allOf": [
+    {
+      "allOf": [
+        {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": false
+        }
+      ]
+    },
+    {
+      "type": "array",
+      "description": "Encryption method supported by wallet service",
+      "minItems": 2,
+      "maxItems": 2,
+      "items": [
+        {
+          "const": "encryption"
+        },
+        {
+          "type": "string",
+          "minLength": 1,
+          "description": "Supported encryption method identifier"
+        }
+      ],
+      "additionalItems": false
+    }
+  ],
+  "$id": "https://nostrability.github.io/schemata/tag/encryption.json"
+}

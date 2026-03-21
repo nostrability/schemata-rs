@@ -93,7 +93,8 @@
       "type": "object",
       "properties": {
         "kind": {
-          "const": 1985
+          "const": 1985,
+          "errorMessage": "kind must equal 1985"
         },
         "tags": {
           "type": "array",
@@ -141,6 +142,9 @@
                     ]
                   }
                 ]
+              },
+              "errorMessage": {
+                "contains": "tags must include at least one l (label) tag"
               }
             },
             {
@@ -383,6 +387,9 @@
                     ]
                   }
                 ]
+              },
+              "errorMessage": {
+                "contains": "tags must include at least one target tag (e, p, a, r, or t)"
               }
             }
           ]

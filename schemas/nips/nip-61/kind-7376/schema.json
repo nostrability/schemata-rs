@@ -92,7 +92,8 @@
       "type": "object",
       "properties": {
         "kind": {
-          "const": 7376
+          "const": 7376,
+          "errorMessage": "kind must equal 7376"
         },
         "tags": {
           "type": "array",
@@ -157,6 +158,9 @@
                     ]
                   }
                 ]
+              },
+              "errorMessage": {
+                "contains": "tags must include an e tag referencing the redeemed nutzap event"
               }
             },
             {
@@ -203,6 +207,9 @@
                     ]
                   }
                 ]
+              },
+              "errorMessage": {
+                "contains": "tags must include a p tag identifying the sender"
               }
             }
           ]

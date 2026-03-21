@@ -85,6 +85,7 @@
       "properties": {
         "kind": {
           "const": 444,
+          "errorMessage": "kind must equal 444",
           "description": "Kind number for Marmot Welcome events"
         },
         "id": {
@@ -223,6 +224,9 @@
                     ]
                   }
                 ]
+              },
+              "errorMessage": {
+                "contains": "tags must include an e tag"
               }
             },
             {
@@ -260,6 +264,9 @@
                     ]
                   }
                 ]
+              },
+              "errorMessage": {
+                "contains": "tags must include a relays tag"
               }
             },
             {
@@ -302,12 +309,12 @@
                     ]
                   }
                 ]
+              },
+              "errorMessage": {
+                "contains": "tags must include an encoding tag"
               }
             }
-          ],
-          "errorMessage": {
-            "contains": "tags must include an e tag, relays, and encoding tags"
-          }
+          ]
         }
       },
       "required": [

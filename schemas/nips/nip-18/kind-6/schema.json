@@ -93,7 +93,8 @@
       "type": "object",
       "properties": {
         "kind": {
-          "const": 6
+          "const": 6,
+          "errorMessage": "kind must equal 6"
         },
         "content": {
           "type": "string",
@@ -132,12 +133,12 @@
                     "pattern": "^(ws://|wss://).+$"
                   }
                 ]
+              },
+              "errorMessage": {
+                "contains": "tags must include an e tag referencing the reposted event"
               }
             }
-          ],
-          "errorMessage": {
-            "contains": "tags must include an e tag with id and a relay URL"
-          }
+          ]
         }
       },
       "required": [

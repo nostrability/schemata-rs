@@ -93,7 +93,8 @@
       "type": "object",
       "properties": {
         "kind": {
-          "const": 30312
+          "const": 30312,
+          "errorMessage": "kind must equal 30312"
         },
         "tags": {
           "type": "array",
@@ -145,6 +146,9 @@
                     ]
                   }
                 ]
+              },
+              "errorMessage": {
+                "contains": "tags must include a d tag"
               }
             },
             {
@@ -181,6 +185,9 @@
                     ]
                   }
                 ]
+              },
+              "errorMessage": {
+                "contains": "tags must include a room tag"
               }
             },
             {
@@ -222,6 +229,9 @@
                     ]
                   }
                 ]
+              },
+              "errorMessage": {
+                "contains": "tags must include a status tag"
               }
             },
             {
@@ -259,6 +269,9 @@
                     ]
                   }
                 ]
+              },
+              "errorMessage": {
+                "contains": "tags must include a service tag"
               }
             },
             {
@@ -305,12 +318,12 @@
                     ]
                   }
                 ]
+              },
+              "errorMessage": {
+                "contains": "tags must include at least one p tag"
               }
             }
-          ],
-          "errorMessage": {
-            "contains": "tags must include required tags: d, room, status, service, and at least one p tag"
-          }
+          ]
         }
       },
       "required": [
