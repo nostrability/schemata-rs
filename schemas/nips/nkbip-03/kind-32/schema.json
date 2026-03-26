@@ -1,0 +1,585 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "kind32",
+  "description": "NKBIP-03 Hardcopy reference (citation)",
+  "allOf": [
+    {
+      "allOf": [
+        {
+          "$schema": "http://json-schema.org/draft-07/schema",
+          "type": "object",
+          "properties": {
+            "content": {
+              "type": "string",
+              "errorMessage": "content must be a string",
+              "description": "The content of the note"
+            },
+            "created_at": {
+              "type": "integer",
+              "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
+              "description": "The timestamp of the note creation"
+            },
+            "id": {
+              "allOf": [
+                {
+                  "allOf": [
+                    {
+                      "$schema": "http://json-schema.org/draft-07/schema#",
+                      "type": "string",
+                      "pattern": "^[a-f0-9]{64}$"
+                    }
+                  ]
+                }
+              ],
+              "errorMessage": "id must be a valid hash",
+              "description": "The id is a hash derived as specified in NIP-01"
+            },
+            "kind": {
+              "type": "integer"
+            },
+            "pubkey": {
+              "allOf": [
+                {
+                  "allOf": [
+                    {
+                      "$schema": "http://json-schema.org/draft-07/schema#",
+                      "type": "string",
+                      "pattern": "^[a-f0-9]{64}$"
+                    }
+                  ]
+                }
+              ],
+              "errorMessage": "pubkey must be a secp256k1 public key",
+              "description": "The public key of the note's author"
+            },
+            "sig": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{128}$",
+              "errorMessage": "sig must be 128 lowercase hex characters (64 bytes)",
+              "description": "The cryptographic signature of the note"
+            },
+            "tags": {
+              "type": "array",
+              "errorMessage": "tags must be an array of valid tag tuples",
+              "description": "The tags of the note",
+              "items": {
+                "allOf": [
+                  {
+                    "$schema": "http://json-schema.org/draft-07/schema#",
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "uniqueItems": false
+                  }
+                ]
+              }
+            }
+          },
+          "required": [
+            "content",
+            "created_at",
+            "id",
+            "kind",
+            "pubkey",
+            "sig",
+            "tags"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "const": 32,
+          "errorMessage": "kind must equal 32"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "allOf": [
+              {
+                "$schema": "http://json-schema.org/draft-07/schema#",
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "uniqueItems": false
+              }
+            ]
+          },
+          "minItems": 1,
+          "allOf": [
+            {
+              "contains": {
+                "allOf": [
+                  {
+                    "$schema": "http://json-schema.org/draft-07/schema#",
+                    "allOf": [
+                      {
+                        "allOf": [
+                          {
+                            "$schema": "http://json-schema.org/draft-07/schema#",
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            },
+                            "uniqueItems": false
+                          }
+                        ]
+                      },
+                      {
+                        "type": "array",
+                        "minItems": 2,
+                        "maxItems": 2,
+                        "items": [
+                          {
+                            "const": "accessed_on"
+                          },
+                          {
+                            "type": "string",
+                            "pattern": "^\\d{4}-\\d{2}-\\d{2}(T\\d{2}:\\d{2}(:\\d{2})?(\\.\\d+)?(Z|[+-]\\d{2}:\\d{2})?)?$",
+                            "description": "Date-time in ISO 8601 format"
+                          }
+                        ],
+                        "additionalItems": false,
+                        "errorMessage": {
+                          "minItems": "accessed_on tag must have at least 2 elements"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              },
+              "errorMessage": {
+                "contains": "tags must include an accessed_on tag"
+              }
+            },
+            {
+              "contains": {
+                "allOf": [
+                  {
+                    "$schema": "http://json-schema.org/draft-07/schema#",
+                    "allOf": [
+                      {
+                        "allOf": [
+                          {
+                            "$schema": "http://json-schema.org/draft-07/schema#",
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            },
+                            "uniqueItems": false
+                          }
+                        ]
+                      },
+                      {
+                        "type": "array",
+                        "minItems": 2,
+                        "items": [
+                          {
+                            "const": "title"
+                          },
+                          {
+                            "type": "string"
+                          }
+                        ],
+                        "additionalItems": true
+                      }
+                    ]
+                  }
+                ]
+              },
+              "errorMessage": {
+                "contains": "tags must include a title tag for the citation"
+              }
+            },
+            {
+              "contains": {
+                "allOf": [
+                  {
+                    "$schema": "http://json-schema.org/draft-07/schema#",
+                    "allOf": [
+                      {
+                        "allOf": [
+                          {
+                            "$schema": "http://json-schema.org/draft-07/schema#",
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            },
+                            "uniqueItems": false
+                          }
+                        ]
+                      },
+                      {
+                        "type": "array",
+                        "minItems": 2,
+                        "items": [
+                          {
+                            "const": "author"
+                          },
+                          {
+                            "type": "string",
+                            "minLength": 1,
+                            "description": "Author name for the citation"
+                          }
+                        ],
+                        "additionalItems": {
+                          "type": "string",
+                          "minLength": 1
+                        },
+                        "errorMessage": {
+                          "minItems": "author tag must have at least 2 elements"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              },
+              "errorMessage": {
+                "contains": "tags must include an author tag"
+              }
+            },
+            {
+              "if": {
+                "contains": {
+                  "type": "array",
+                  "items": [
+                    {
+                      "const": "page_range"
+                    }
+                  ]
+                }
+              },
+              "then": {
+                "contains": {
+                  "allOf": [
+                    {
+                      "$schema": "http://json-schema.org/draft-07/schema#",
+                      "allOf": [
+                        {
+                          "allOf": [
+                            {
+                              "$schema": "http://json-schema.org/draft-07/schema#",
+                              "type": "array",
+                              "items": {
+                                "type": "string"
+                              },
+                              "uniqueItems": false
+                            }
+                          ]
+                        },
+                        {
+                          "type": "array",
+                          "minItems": 2,
+                          "maxItems": 2,
+                          "items": [
+                            {
+                              "const": "page_range"
+                            },
+                            {
+                              "type": "string",
+                              "minLength": 1,
+                              "description": "Pages the citation is found on"
+                            }
+                          ],
+                          "additionalItems": false,
+                          "errorMessage": {
+                            "minItems": "page_range tag must have at least 2 elements"
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                }
+              }
+            },
+            {
+              "if": {
+                "contains": {
+                  "type": "array",
+                  "items": [
+                    {
+                      "const": "chapter_title"
+                    }
+                  ]
+                }
+              },
+              "then": {
+                "contains": {
+                  "allOf": [
+                    {
+                      "$schema": "http://json-schema.org/draft-07/schema#",
+                      "allOf": [
+                        {
+                          "allOf": [
+                            {
+                              "$schema": "http://json-schema.org/draft-07/schema#",
+                              "type": "array",
+                              "items": {
+                                "type": "string"
+                              },
+                              "uniqueItems": false
+                            }
+                          ]
+                        },
+                        {
+                          "type": "array",
+                          "minItems": 2,
+                          "maxItems": 2,
+                          "items": [
+                            {
+                              "const": "chapter_title"
+                            },
+                            {
+                              "type": "string",
+                              "minLength": 1,
+                              "description": "Chapter or section the citation is found in"
+                            }
+                          ],
+                          "additionalItems": false,
+                          "errorMessage": {
+                            "minItems": "chapter_title tag must have at least 2 elements"
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                }
+              }
+            },
+            {
+              "if": {
+                "contains": {
+                  "type": "array",
+                  "items": [
+                    {
+                      "const": "editor"
+                    }
+                  ]
+                }
+              },
+              "then": {
+                "contains": {
+                  "allOf": [
+                    {
+                      "$schema": "http://json-schema.org/draft-07/schema#",
+                      "allOf": [
+                        {
+                          "allOf": [
+                            {
+                              "$schema": "http://json-schema.org/draft-07/schema#",
+                              "type": "array",
+                              "items": {
+                                "type": "string"
+                              },
+                              "uniqueItems": false
+                            }
+                          ]
+                        },
+                        {
+                          "type": "array",
+                          "minItems": 2,
+                          "maxItems": 2,
+                          "items": [
+                            {
+                              "const": "editor"
+                            },
+                            {
+                              "type": "string",
+                              "minLength": 1,
+                              "description": "Editor of the publication"
+                            }
+                          ],
+                          "additionalItems": false,
+                          "errorMessage": {
+                            "minItems": "editor tag must have at least 2 elements"
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                }
+              }
+            },
+            {
+              "if": {
+                "contains": {
+                  "type": "array",
+                  "items": [
+                    {
+                      "const": "doi"
+                    }
+                  ]
+                }
+              },
+              "then": {
+                "contains": {
+                  "allOf": [
+                    {
+                      "$schema": "http://json-schema.org/draft-07/schema#",
+                      "allOf": [
+                        {
+                          "allOf": [
+                            {
+                              "$schema": "http://json-schema.org/draft-07/schema#",
+                              "type": "array",
+                              "items": {
+                                "type": "string"
+                              },
+                              "uniqueItems": false
+                            }
+                          ]
+                        },
+                        {
+                          "type": "array",
+                          "minItems": 2,
+                          "maxItems": 2,
+                          "items": [
+                            {
+                              "const": "doi"
+                            },
+                            {
+                              "type": "string",
+                              "minLength": 1,
+                              "pattern": "^10\\.\\d{4,9}/.+$",
+                              "description": "DOI number for the publication"
+                            }
+                          ],
+                          "additionalItems": false,
+                          "errorMessage": {
+                            "minItems": "doi tag must have at least 2 elements"
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                }
+              }
+            },
+            {
+              "if": {
+                "contains": {
+                  "type": "array",
+                  "items": [
+                    {
+                      "const": "published_in"
+                    }
+                  ]
+                }
+              },
+              "then": {
+                "contains": {
+                  "allOf": [
+                    {
+                      "$schema": "http://json-schema.org/draft-07/schema#",
+                      "allOf": [
+                        {
+                          "allOf": [
+                            {
+                              "$schema": "http://json-schema.org/draft-07/schema#",
+                              "type": "array",
+                              "items": {
+                                "type": "string"
+                              },
+                              "uniqueItems": false
+                            }
+                          ]
+                        },
+                        {
+                          "type": "array",
+                          "minItems": 2,
+                          "maxItems": 3,
+                          "items": [
+                            {
+                              "const": "published_in"
+                            },
+                            {
+                              "type": "string",
+                              "minLength": 1,
+                              "description": "Journal name"
+                            },
+                            {
+                              "type": "string",
+                              "description": "Volume number"
+                            }
+                          ],
+                          "additionalItems": false,
+                          "errorMessage": {
+                            "minItems": "published_in tag must have at least 2 elements"
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                }
+              }
+            },
+            {
+              "if": {
+                "contains": {
+                  "type": "array",
+                  "items": [
+                    {
+                      "const": "version"
+                    }
+                  ]
+                }
+              },
+              "then": {
+                "contains": {
+                  "allOf": [
+                    {
+                      "$schema": "http://json-schema.org/draft-07/schema#",
+                      "allOf": [
+                        {
+                          "allOf": [
+                            {
+                              "$schema": "http://json-schema.org/draft-07/schema#",
+                              "type": "array",
+                              "items": {
+                                "type": "string"
+                              },
+                              "uniqueItems": false
+                            }
+                          ]
+                        },
+                        {
+                          "type": "array",
+                          "minItems": 2,
+                          "maxItems": 2,
+                          "items": [
+                            {
+                              "const": "version"
+                            },
+                            {
+                              "type": "string",
+                              "minLength": 1,
+                              "description": "Version or edition of the publication or model"
+                            }
+                          ],
+                          "additionalItems": false,
+                          "errorMessage": {
+                            "minItems": "version tag must have at least 2 elements"
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      },
+      "required": [
+        "kind",
+        "tags"
+      ]
+    }
+  ],
+  "$id": "https://nostrability.github.io/schemata/note/kind/32.json"
+}

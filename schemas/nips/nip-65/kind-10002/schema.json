@@ -91,9 +91,25 @@
     {
       "type": "object",
       "properties": {
+        "kind": {
+          "const": 10002,
+          "errorMessage": "kind must equal 10002"
+        },
         "tags": {
           "type": "array",
           "items": {
+            "allOf": [
+              {
+                "$schema": "http://json-schema.org/draft-07/schema#",
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "uniqueItems": false
+              }
+            ]
+          },
+          "contains": {
             "allOf": [
               {
                 "$schema": "http://json-schema.org/draft-07/schema#",
@@ -113,29 +129,43 @@
                   {
                     "type": "array",
                     "minItems": 2,
+                    "maxItems": 3,
                     "items": [
                       {
                         "const": "r"
                       },
                       {
-                        "type": "string"
+                        "type": "string",
+                        "pattern": "^(ws://|wss://).+$",
+                        "description": "Relay URL"
+                      },
+                      {
+                        "type": "string",
+                        "enum": [
+                          "read",
+                          "write"
+                        ],
+                        "description": "Optional read/write marker"
                       }
                     ],
-                    "additionalItems": true
+                    "additionalItems": false,
+                    "errorMessage": {
+                      "minItems": "r tag must have at least 2 elements"
+                    }
                   }
                 ]
               }
             ]
           },
-          "additionalItems": false,
           "minItems": 1,
           "errorMessage": {
-            "type": "tags must be an array of r tags",
-            "minItems": "tags array must have at least one r tag"
+            "contains": "tags must include at least one r tag with a relay URL",
+            "minItems": "tags array must have at least one tag"
           }
         }
       },
       "required": [
+        "kind",
         "tags"
       ]
     }

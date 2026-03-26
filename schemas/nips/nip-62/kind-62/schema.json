@@ -113,40 +113,42 @@
           "contains": {
             "allOf": [
               {
-                "$schema": "http://json-schema.org/draft-07/schema#",
                 "allOf": [
                   {
-                    "allOf": [
-                      {
-                        "$schema": "http://json-schema.org/draft-07/schema#",
-                        "type": "array",
-                        "items": {
-                          "type": "string"
-                        },
-                        "uniqueItems": false
-                      }
-                    ]
-                  },
-                  {
+                    "$schema": "http://json-schema.org/draft-07/schema#",
                     "type": "array",
-                    "minItems": 2,
-                    "items": [
-                      {
-                        "const": "relay"
-                      },
-                      {
-                        "type": "string",
-                        "pattern": "^(ws://|wss://).+$"
-                      }
-                    ],
-                    "additionalItems": false
+                    "items": {
+                      "type": "string"
+                    },
+                    "uniqueItems": false
                   }
                 ]
+              },
+              {
+                "type": "array",
+                "minItems": 2,
+                "items": [
+                  {
+                    "const": "relay"
+                  },
+                  {
+                    "type": "string",
+                    "anyOf": [
+                      {
+                        "pattern": "^(ws://|wss://).+$"
+                      },
+                      {
+                        "const": "ALL_RELAYS"
+                      }
+                    ]
+                  }
+                ],
+                "additionalItems": false
               }
             ]
           },
           "errorMessage": {
-            "contains": "tags must include at least one relay tag"
+            "contains": "tags must include at least one relay tag (ws(s):// URL or ALL_RELAYS)"
           }
         }
       },

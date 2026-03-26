@@ -26,10 +26,21 @@
         },
         {
           "type": "string",
-          "description": "Input type (url, event, job, text)"
+          "enum": [
+            "url",
+            "event",
+            "job",
+            "text"
+          ],
+          "description": "Input type"
         }
       ],
-      "additionalItems": true
+      "additionalItems": {
+        "type": "string"
+      },
+      "errorMessage": {
+        "minItems": "i tag must have at least 3 elements"
+      }
     }
   ],
   "$id": "https://nostrability.github.io/schemata/tag/nip-90_i.json"

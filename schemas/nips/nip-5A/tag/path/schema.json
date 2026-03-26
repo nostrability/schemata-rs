@@ -1,0 +1,42 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "allOf": [
+    {
+      "allOf": [
+        {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": false
+        }
+      ]
+    },
+    {
+      "type": "array",
+      "minItems": 3,
+      "maxItems": 3,
+      "items": [
+        {
+          "const": "path"
+        },
+        {
+          "type": "string",
+          "pattern": "^/.+",
+          "description": "Absolute path ending with a filename and extension"
+        },
+        {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$",
+          "description": "SHA-256 hash of the file served at this path"
+        }
+      ],
+      "additionalItems": false,
+      "errorMessage": {
+        "minItems": "path tag must have at least 3 elements"
+      }
+    }
+  ],
+  "$id": "https://nostrability.github.io/schemata/tag/path.json"
+}

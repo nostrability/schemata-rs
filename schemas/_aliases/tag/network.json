@@ -25,14 +25,14 @@
             },
             {
               "type": "string",
-              "enum": [
-                "mainnet",
-                "testnet",
-                "signet"
-              ]
+              "minLength": 1,
+              "description": "Bitcoin network (e.g. mainnet, testnet, signet)"
             }
           ],
-          "additionalItems": false
+          "additionalItems": false,
+          "errorMessage": {
+            "minItems": "network tag must have at least 2 elements"
+          }
         }
       ]
     }

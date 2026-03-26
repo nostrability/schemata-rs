@@ -468,14 +468,14 @@
                           },
                           {
                             "type": "string",
-                            "enum": [
-                              "mainnet",
-                              "testnet",
-                              "signet"
-                            ]
+                            "minLength": 1,
+                            "description": "Bitcoin network (e.g. mainnet, testnet, signet)"
                           }
                         ],
-                        "additionalItems": false
+                        "additionalItems": false,
+                        "errorMessage": {
+                          "minItems": "network tag must have at least 2 elements"
+                        }
                       }
                     ]
                   }
@@ -513,14 +513,14 @@
                           },
                           {
                             "type": "string",
-                            "enum": [
-                              "onchain",
-                              "lightning",
-                              "liquid"
-                            ]
+                            "minLength": 1,
+                            "description": "Payment layer (e.g. onchain, lightning, liquid)"
                           }
                         ],
-                        "additionalItems": false
+                        "additionalItems": false,
+                        "errorMessage": {
+                          "minItems": "layer tag must have at least 2 elements"
+                        }
                       }
                     ]
                   }

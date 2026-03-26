@@ -1,42 +1,37 @@
 {
+  "$schema": "http://json-schema.org/draft-07/schema#",
   "allOf": [
     {
       "$schema": "http://json-schema.org/draft-07/schema#",
-      "allOf": [
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": false
+    },
+    {
+      "type": "array",
+      "description": "Label tag (NIP-32). Applies a label within a namespace.",
+      "minItems": 3,
+      "items": [
         {
-          "allOf": [
-            {
-              "$schema": "http://json-schema.org/draft-07/schema#",
-              "type": "array",
-              "items": {
-                "type": "string"
-              },
-              "uniqueItems": false
-            }
-          ]
+          "const": "l"
         },
         {
-          "type": "array",
-          "description": "Label tag (NIP-32). Second element is label value; optional third element 'mark' matches an 'L' tag in the same event.",
-          "minItems": 2,
-          "items": [
-            {
-              "const": "l"
-            },
-            {
-              "type": "string",
-              "title": "label",
-              "description": "A short, meaningful label string."
-            },
-            {
-              "type": "string",
-              "title": "mark",
-              "description": "Optional namespace mark; SHOULD match an 'L' tag value in the same event if present."
-            }
-          ],
-          "additionalItems": false
+          "type": "string",
+          "minLength": 1,
+          "description": "Label value"
+        },
+        {
+          "type": "string",
+          "minLength": 1,
+          "description": "Label namespace"
         }
-      ]
+      ],
+      "additionalItems": false,
+      "errorMessage": {
+        "minItems": "l tag must have at least 3 elements"
+      }
     }
   ]
 }
