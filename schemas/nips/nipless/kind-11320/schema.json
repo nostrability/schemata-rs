@@ -1,9 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "title": "kind3",
-  "x-stringified": [
-    "content"
-  ],
+  "title": "kind11320",
+  "description": "CVM Published Prompts List (CEP-06)",
   "allOf": [
     {
       "allOf": [
@@ -94,26 +92,16 @@
     {
       "type": "object",
       "properties": {
-        "tags": {
-          "type": "array",
-          "items": {
-            "allOf": [
-              {
-                "$schema": "http://json-schema.org/draft-07/schema#",
-                "type": "array",
-                "items": {
-                  "type": "string"
-                },
-                "uniqueItems": false
-              }
-            ]
-          },
-          "errorMessage": {
-            "type": "tags must be an array of valid tag tuples"
-          }
+        "kind": {
+          "const": 11320,
+          "description": "Kind 11320 identifies a CVM published prompts list",
+          "errorMessage": "kind must equal 11320"
         }
-      }
+      },
+      "required": [
+        "kind"
+      ]
     }
   ],
-  "$id": "https://nostrability.github.io/schemata/note/kind/3.json"
+  "$id": "https://nostrability.github.io/schemata/note/kind/11320.json"
 }

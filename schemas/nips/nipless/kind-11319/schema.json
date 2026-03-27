@@ -1,9 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "title": "kind3",
-  "x-stringified": [
-    "content"
-  ],
+  "title": "kind11319",
+  "description": "CVM Published Resource Templates (CEP-06)",
   "allOf": [
     {
       "allOf": [
@@ -94,26 +92,16 @@
     {
       "type": "object",
       "properties": {
-        "tags": {
-          "type": "array",
-          "items": {
-            "allOf": [
-              {
-                "$schema": "http://json-schema.org/draft-07/schema#",
-                "type": "array",
-                "items": {
-                  "type": "string"
-                },
-                "uniqueItems": false
-              }
-            ]
-          },
-          "errorMessage": {
-            "type": "tags must be an array of valid tag tuples"
-          }
+        "kind": {
+          "const": 11319,
+          "description": "Kind 11319 identifies CVM published resource templates",
+          "errorMessage": "kind must equal 11319"
         }
-      }
+      },
+      "required": [
+        "kind"
+      ]
     }
   ],
-  "$id": "https://nostrability.github.io/schemata/note/kind/3.json"
+  "$id": "https://nostrability.github.io/schemata/note/kind/11319.json"
 }

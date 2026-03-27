@@ -1,9 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "title": "kind3",
-  "x-stringified": [
-    "content"
-  ],
+  "title": "kind30777",
+  "description": "Spellbook — collection of spells (addressable event)",
   "allOf": [
     {
       "allOf": [
@@ -94,6 +92,10 @@
     {
       "type": "object",
       "properties": {
+        "kind": {
+          "const": 30777,
+          "errorMessage": "kind must equal 30777"
+        },
         "tags": {
           "type": "array",
           "items": {
@@ -108,12 +110,54 @@
               }
             ]
           },
-          "errorMessage": {
-            "type": "tags must be an array of valid tag tuples"
-          }
+          "allOf": [
+            {
+              "contains": {
+                "allOf": [
+                  {
+                    "$schema": "http://json-schema.org/draft-07/schema#",
+                    "allOf": [
+                      {
+                        "allOf": [
+                          {
+                            "$schema": "http://json-schema.org/draft-07/schema#",
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            },
+                            "uniqueItems": false
+                          }
+                        ]
+                      },
+                      {
+                        "type": "array",
+                        "minItems": 2,
+                        "items": [
+                          {
+                            "const": "d"
+                          },
+                          {
+                            "type": "string"
+                          }
+                        ],
+                        "additionalItems": true
+                      }
+                    ]
+                  }
+                ]
+              },
+              "errorMessage": {
+                "contains": "tags must include a d tag (required for addressable events)"
+              }
+            }
+          ]
         }
-      }
+      },
+      "required": [
+        "kind",
+        "tags"
+      ]
     }
   ],
-  "$id": "https://nostrability.github.io/schemata/note/kind/3.json"
+  "$id": "https://nostrability.github.io/schemata/note/kind/30777.json"
 }

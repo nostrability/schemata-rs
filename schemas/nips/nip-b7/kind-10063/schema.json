@@ -101,6 +101,18 @@
             "allOf": [
               {
                 "$schema": "http://json-schema.org/draft-07/schema#",
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "uniqueItems": false
+              }
+            ]
+          },
+          "contains": {
+            "allOf": [
+              {
+                "$schema": "http://json-schema.org/draft-07/schema#",
                 "allOf": [
                   {
                     "allOf": [
@@ -140,12 +152,11 @@
               }
             ]
           },
-          "additionalItems": false,
           "minItems": 1,
           "errorMessage": {
-            "type": "tags must be an array of server tags",
-            "minItems": "tags array must have at least one server tag",
-            "additionalItems": "server lists must only include server tags"
+            "type": "tags must be an array of valid tag tuples",
+            "contains": "tags must include at least one server tag",
+            "minItems": "tags array must have at least one tag"
           }
         }
       },
