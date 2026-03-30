@@ -141,6 +141,7 @@
                 "allOf": [
                   {
                     "$schema": "http://json-schema.org/draft-07/schema#",
+                    "title": "NIP-88 e tag",
                     "allOf": [
                       {
                         "allOf": [
@@ -153,13 +154,11 @@
                             "uniqueItems": false
                           }
                         ]
-                      }
-                    ],
-                    "oneOf": [
+                      },
                       {
                         "type": "array",
-                        "minItems": 4,
-                        "maxItems": 5,
+                        "minItems": 2,
+                        "maxItems": 4,
                         "items": [
                           {
                             "const": "e"
@@ -181,13 +180,6 @@
                             ]
                           },
                           {
-                            "type": "string",
-                            "enum": [
-                              "reply",
-                              "root"
-                            ]
-                          },
-                          {
                             "allOf": [
                               {
                                 "$schema": "http://json-schema.org/draft-07/schema#",
@@ -195,25 +187,6 @@
                                 "pattern": "^[a-f0-9]{64}$"
                               }
                             ]
-                          }
-                        ],
-                        "additionalItems": false
-                      },
-                      {
-                        "type": "array",
-                        "minItems": 2,
-                        "maxItems": 3,
-                        "items": [
-                          {
-                            "const": "e"
-                          },
-                          {
-                            "type": "string",
-                            "pattern": "^[a-f0-9]{64}$"
-                          },
-                          {
-                            "type": "string",
-                            "pattern": "^(ws://|wss://).+$"
                           }
                         ],
                         "additionalItems": false
@@ -288,6 +261,7 @@
                   "allOf": [
                     {
                       "$schema": "http://json-schema.org/draft-07/schema#",
+                      "title": "NIP-88 e tag",
                       "allOf": [
                         {
                           "allOf": [
@@ -300,13 +274,11 @@
                               "uniqueItems": false
                             }
                           ]
-                        }
-                      ],
-                      "oneOf": [
+                        },
                         {
                           "type": "array",
-                          "minItems": 4,
-                          "maxItems": 5,
+                          "minItems": 2,
+                          "maxItems": 4,
                           "items": [
                             {
                               "const": "e"
@@ -328,13 +300,6 @@
                               ]
                             },
                             {
-                              "type": "string",
-                              "enum": [
-                                "reply",
-                                "root"
-                              ]
-                            },
-                            {
                               "allOf": [
                                 {
                                   "$schema": "http://json-schema.org/draft-07/schema#",
@@ -342,25 +307,6 @@
                                   "pattern": "^[a-f0-9]{64}$"
                                 }
                               ]
-                            }
-                          ],
-                          "additionalItems": false
-                        },
-                        {
-                          "type": "array",
-                          "minItems": 2,
-                          "maxItems": 3,
-                          "items": [
-                            {
-                              "const": "e"
-                            },
-                            {
-                              "type": "string",
-                              "pattern": "^[a-f0-9]{64}$"
-                            },
-                            {
-                              "type": "string",
-                              "pattern": "^(ws://|wss://).+$"
                             }
                           ],
                           "additionalItems": false

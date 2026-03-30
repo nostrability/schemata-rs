@@ -100,52 +100,100 @@
           "allOf": [
             {
               "contains": {
-                "allOf": [
+                "anyOf": [
                   {
-                    "$schema": "http://json-schema.org/draft-07/schema#",
                     "allOf": [
                       {
+                        "$schema": "http://json-schema.org/draft-07/schema#",
                         "allOf": [
-                          {
-                            "$schema": "http://json-schema.org/draft-07/schema#",
-                            "type": "array",
-                            "items": {
-                              "type": "string"
-                            },
-                            "uniqueItems": false
-                          }
-                        ]
-                      },
-                      {
-                        "type": "array",
-                        "minItems": 3,
-                        "items": [
-                          {
-                            "const": "p"
-                          },
                           {
                             "allOf": [
                               {
                                 "$schema": "http://json-schema.org/draft-07/schema#",
-                                "type": "string",
-                                "pattern": "^[a-f0-9]{64}$"
+                                "type": "array",
+                                "items": {
+                                  "type": "string"
+                                },
+                                "uniqueItems": false
                               }
                             ]
                           },
                           {
-                            "type": "string",
-                            "enum": [
-                              "nudity",
-                              "malware",
-                              "profanity",
-                              "illegal",
-                              "spam",
-                              "impersonation",
-                              "other"
-                            ]
+                            "type": "array",
+                            "minItems": 2,
+                            "items": [
+                              {
+                                "const": "p"
+                              },
+                              {
+                                "allOf": [
+                                  {
+                                    "$schema": "http://json-schema.org/draft-07/schema#",
+                                    "type": "string",
+                                    "pattern": "^[a-f0-9]{64}$"
+                                  }
+                                ]
+                              },
+                              {
+                                "title": "petname",
+                                "type": "string"
+                              }
+                            ],
+                            "additionalItems": false
                           }
-                        ],
-                        "additionalItems": true
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "allOf": [
+                      {
+                        "$schema": "http://json-schema.org/draft-07/schema#",
+                        "allOf": [
+                          {
+                            "allOf": [
+                              {
+                                "$schema": "http://json-schema.org/draft-07/schema#",
+                                "type": "array",
+                                "items": {
+                                  "type": "string"
+                                },
+                                "uniqueItems": false
+                              }
+                            ]
+                          },
+                          {
+                            "type": "array",
+                            "minItems": 3,
+                            "items": [
+                              {
+                                "const": "p"
+                              },
+                              {
+                                "allOf": [
+                                  {
+                                    "$schema": "http://json-schema.org/draft-07/schema#",
+                                    "type": "string",
+                                    "pattern": "^[a-f0-9]{64}$"
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "string",
+                                "enum": [
+                                  "nudity",
+                                  "malware",
+                                  "profanity",
+                                  "illegal",
+                                  "spam",
+                                  "impersonation",
+                                  "other"
+                                ]
+                              }
+                            ],
+                            "additionalItems": true
+                          }
+                        ]
                       }
                     ]
                   }
