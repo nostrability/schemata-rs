@@ -24,7 +24,9 @@
             },
             {
               "type": "string",
-              "pattern": "^[a-f0-9]{64}$"
+              "pattern": "^(02|03)[a-f0-9]{64}$",
+              "description": "Compressed secp256k1 public key (33 bytes hex) for P2PK-locked nutzaps",
+              "errorMessage": "pubkey must be a 66-character compressed secp256k1 public key (02 or 03 prefix + 64 hex chars)"
             }
           ],
           "additionalItems": false

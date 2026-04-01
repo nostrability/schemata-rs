@@ -1,0 +1,8 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "nprofile",
+  "type": "string",
+  "pattern": "^nprofile1[02-9ac-hj-np-z]+$",
+  "description": "NIP-19 bech32-encoded profile (nprofile, TLV-encoded)",
+  "errorMessage": "must be a valid nprofile (bech32 string starting with nprofile1)"
+}

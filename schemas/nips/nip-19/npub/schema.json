@@ -1,0 +1,8 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "npub",
+  "type": "string",
+  "pattern": "^npub1[02-9ac-hj-np-z]{58}$",
+  "description": "NIP-19 bech32-encoded public key (npub)",
+  "errorMessage": "must be a valid npub (63-char bech32 string starting with npub1)"
+}

@@ -1,0 +1,8 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "nostrUri",
+  "type": "string",
+  "pattern": "^nostr:((npub|note)1[02-9ac-hj-np-z]{58}|(nprofile|nevent|naddr)1[02-9ac-hj-np-z]+)$",
+  "description": "NIP-27 nostr: URI scheme (nostr: prefix with bech32-encoded entity)",
+  "errorMessage": "must be a valid nostr: URI (nostr: followed by npub1/note1/nprofile1/nevent1/naddr1)"
+}

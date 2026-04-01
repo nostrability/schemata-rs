@@ -22,6 +22,7 @@
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },

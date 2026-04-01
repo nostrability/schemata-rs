@@ -35,9 +35,16 @@
           "additionalProperties": {
             "type": "array",
             "items": {
-              "type": "string",
-              "format": "uri",
-              "pattern": "^wss?://"
+              "allOf": [
+                {
+                  "$schema": "http://json-schema.org/draft-07/schema#",
+                  "title": "relayUrl",
+                  "type": "string",
+                  "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+                  "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+                  "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+                }
+              ]
             }
           }
         }

@@ -15,6 +15,7 @@
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -136,8 +137,16 @@
                             "const": "relay"
                           },
                           {
-                            "type": "string",
-                            "pattern": "^(ws://|wss://).+$"
+                            "allOf": [
+                              {
+                                "$schema": "http://json-schema.org/draft-07/schema#",
+                                "title": "relayUrl",
+                                "type": "string",
+                                "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+                                "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+                                "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+                              }
+                            ]
                           }
                         ],
                         "additionalItems": false
@@ -221,7 +230,9 @@
                           },
                           {
                             "type": "string",
-                            "pattern": "^[a-f0-9]{64}$"
+                            "pattern": "^(02|03)[a-f0-9]{64}$",
+                            "description": "Compressed secp256k1 public key (33 bytes hex) for P2PK-locked nutzaps",
+                            "errorMessage": "pubkey must be a 66-character compressed secp256k1 public key (02 or 03 prefix + 64 hex chars)"
                           }
                         ],
                         "additionalItems": false
@@ -231,7 +242,7 @@
                 ]
               },
               "errorMessage": {
-                "contains": "tags must include a pubkey tag for receiving nutzaps"
+                "contains": "tags must include a pubkey tag with a compressed secp256k1 key (02/03 prefix + 64 hex chars) for P2PK-locked nutzaps"
               }
             }
           ]

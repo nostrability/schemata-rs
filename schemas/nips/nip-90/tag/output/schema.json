@@ -23,8 +23,9 @@
         },
         {
           "type": "string",
-          "minLength": 1,
-          "description": "MIME type of desired output"
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9!#$&^_.+-]*/[A-Za-z0-9][A-Za-z0-9!#$&^_.+-]*$",
+          "description": "MIME type of desired output",
+          "errorMessage": "must be a valid MIME type (e.g. 'text/plain', 'image/png')"
         }
       ],
       "additionalItems": false

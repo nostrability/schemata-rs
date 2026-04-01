@@ -26,8 +26,16 @@
                   "const": "relay"
                 },
                 {
-                  "type": "string",
-                  "pattern": "^(ws://|wss://).+$"
+                  "allOf": [
+                    {
+                      "$schema": "http://json-schema.org/draft-07/schema#",
+                      "title": "relayUrl",
+                      "type": "string",
+                      "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+                      "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+                      "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+                    }
+                  ]
                 }
               ],
               "additionalItems": false
@@ -44,8 +52,16 @@
           "const": "relay"
         },
         {
-          "type": "string",
-          "pattern": "^wss?://[a-zA-Z0-9.-]+(?::[0-9]+)?(?:/.*)?$"
+          "allOf": [
+            {
+              "$schema": "http://json-schema.org/draft-07/schema#",
+              "title": "relayUrl",
+              "type": "string",
+              "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+              "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+              "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+            }
+          ]
         }
       ]
     }

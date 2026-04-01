@@ -6,7 +6,9 @@
     },
     {
       "type": "string",
-      "description": "The id of the subscription that the note is being sent in response to"
+      "description": "The event ID",
+      "pattern": "^[a-f0-9]{64}$",
+      "errorMessage": "must be a 64-character lowercase hex event ID"
     },
     {
       "type": "boolean",
@@ -14,9 +16,7 @@
     },
     {
       "type": "string",
-      "description": "A response message",
-      "errorMessage": "response message must be a string that follows the format: '{code}: {message}'",
-      "pattern": "^[a-zA-Z0-9_-]+: .+"
+      "description": "A response message"
     }
   ],
   "minItems": 4,

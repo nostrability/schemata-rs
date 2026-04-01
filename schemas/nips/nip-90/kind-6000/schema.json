@@ -16,6 +16,7 @@
             },
             "created_at": {
               "type": "integer",
+              "minimum": 0,
               "errorMessage": "created_at must be a timestamp expressed in seconds (not milliseconds)",
               "description": "The timestamp of the note creation"
             },
@@ -151,8 +152,16 @@
                           {
                             "anyOf": [
                               {
-                                "type": "string",
-                                "pattern": "^(ws://|wss://).+$"
+                                "allOf": [
+                                  {
+                                    "$schema": "http://json-schema.org/draft-07/schema#",
+                                    "title": "relayUrl",
+                                    "type": "string",
+                                    "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+                                    "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+                                    "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+                                  }
+                                ]
                               },
                               {
                                 "type": "string",
@@ -164,7 +173,8 @@
                             "type": "string",
                             "enum": [
                               "reply",
-                              "root"
+                              "root",
+                              "mention"
                             ]
                           },
                           {
@@ -192,8 +202,16 @@
                             "pattern": "^[a-f0-9]{64}$"
                           },
                           {
-                            "type": "string",
-                            "pattern": "^(ws://|wss://).+$"
+                            "allOf": [
+                              {
+                                "$schema": "http://json-schema.org/draft-07/schema#",
+                                "title": "relayUrl",
+                                "type": "string",
+                                "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+                                "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+                                "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+                              }
+                            ]
                           }
                         ],
                         "additionalItems": false
@@ -237,6 +255,27 @@
                                 "$schema": "http://json-schema.org/draft-07/schema#",
                                 "type": "string",
                                 "pattern": "^[a-f0-9]{64}$"
+                              }
+                            ]
+                          },
+                          {
+                            "title": "recommended relay URL",
+                            "anyOf": [
+                              {
+                                "allOf": [
+                                  {
+                                    "$schema": "http://json-schema.org/draft-07/schema#",
+                                    "title": "relayUrl",
+                                    "type": "string",
+                                    "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+                                    "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+                                    "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "string",
+                                "const": ""
                               }
                             ]
                           },

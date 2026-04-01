@@ -29,8 +29,9 @@
         },
         {
           "type": "string",
-          "minLength": 1,
-          "description": "Optional bolt11 invoice"
+          "pattern": "^lnbc[a-z0-9]*1[02-9ac-hj-np-z]+$",
+          "description": "Optional bolt11 invoice",
+          "errorMessage": "must be a valid bolt11 invoice starting with 'lnbc'"
         }
       ],
       "additionalItems": false,
