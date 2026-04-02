@@ -1,0 +1,14 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "kind446Content",
+  "x-content-encoding": "base64",
+  "description": "Base64-encoded concatenation of 280-byte EncryptedToken values (MIP-05). Decoded binary requires a protocol-specific parser.",
+  "type": "string",
+  "pattern": "^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$",
+  "minLength": 376,
+  "errorMessage": {
+    "type": "content must be a string",
+    "pattern": "content must be valid base64",
+    "minLength": "content must be at least 376 base64 characters (one 280-byte EncryptedToken)"
+  }
+}

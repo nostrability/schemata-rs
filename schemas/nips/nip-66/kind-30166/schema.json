@@ -36,7 +36,10 @@
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -99,18 +102,6 @@
         },
         "tags": {
           "type": "array",
-          "items": {
-            "allOf": [
-              {
-                "$schema": "http://json-schema.org/draft-07/schema#",
-                "type": "array",
-                "items": {
-                  "type": "string"
-                },
-                "uniqueItems": false
-              }
-            ]
-          },
           "contains": {
             "allOf": [
               {
@@ -147,6 +138,289 @@
           },
           "errorMessage": {
             "contains": "tags must include a d tag with the relay URL"
+          },
+          "items": {
+            "allOf": [
+              {
+                "if": {
+                  "type": "array",
+                  "items": [
+                    {
+                      "const": "rtt-open"
+                    }
+                  ]
+                },
+                "then": {
+                  "type": "array",
+                  "minItems": 2,
+                  "maxItems": 2,
+                  "items": [
+                    {
+                      "const": "rtt-open"
+                    },
+                    {
+                      "type": "string",
+                      "pattern": "^[0-9]+$"
+                    }
+                  ],
+                  "errorMessage": "rtt-open tag must be [\"rtt-open\", \"<numeric-ms>\"]"
+                }
+              },
+              {
+                "if": {
+                  "type": "array",
+                  "items": [
+                    {
+                      "const": "rtt-read"
+                    }
+                  ]
+                },
+                "then": {
+                  "type": "array",
+                  "minItems": 2,
+                  "maxItems": 2,
+                  "items": [
+                    {
+                      "const": "rtt-read"
+                    },
+                    {
+                      "type": "string",
+                      "pattern": "^[0-9]+$"
+                    }
+                  ],
+                  "errorMessage": "rtt-read tag must be [\"rtt-read\", \"<numeric-ms>\"]"
+                }
+              },
+              {
+                "if": {
+                  "type": "array",
+                  "items": [
+                    {
+                      "const": "rtt-write"
+                    }
+                  ]
+                },
+                "then": {
+                  "type": "array",
+                  "minItems": 2,
+                  "maxItems": 2,
+                  "items": [
+                    {
+                      "const": "rtt-write"
+                    },
+                    {
+                      "type": "string",
+                      "pattern": "^[0-9]+$"
+                    }
+                  ],
+                  "errorMessage": "rtt-write tag must be [\"rtt-write\", \"<numeric-ms>\"]"
+                }
+              },
+              {
+                "if": {
+                  "type": "array",
+                  "items": [
+                    {
+                      "const": "n"
+                    }
+                  ]
+                },
+                "then": {
+                  "type": "array",
+                  "minItems": 2,
+                  "maxItems": 2,
+                  "items": [
+                    {
+                      "const": "n"
+                    },
+                    {
+                      "type": "string",
+                      "pattern": "^[a-z][a-z0-9]*$"
+                    }
+                  ],
+                  "errorMessage": "n tag must be [\"n\", \"<lowercase-network>\"]"
+                }
+              },
+              {
+                "if": {
+                  "type": "array",
+                  "items": [
+                    {
+                      "const": "T"
+                    }
+                  ]
+                },
+                "then": {
+                  "type": "array",
+                  "minItems": 2,
+                  "maxItems": 2,
+                  "items": [
+                    {
+                      "const": "T"
+                    },
+                    {
+                      "type": "string",
+                      "pattern": "^[A-Z][a-zA-Z0-9]*$"
+                    }
+                  ],
+                  "errorMessage": "T tag must be [\"T\", \"<PascalCase-relay-type>\"]"
+                }
+              },
+              {
+                "if": {
+                  "type": "array",
+                  "items": [
+                    {
+                      "const": "N"
+                    }
+                  ]
+                },
+                "then": {
+                  "type": "array",
+                  "minItems": 2,
+                  "maxItems": 2,
+                  "items": [
+                    {
+                      "const": "N"
+                    },
+                    {
+                      "type": "string",
+                      "pattern": "^[0-9]+$"
+                    }
+                  ],
+                  "errorMessage": "N tag must be [\"N\", \"<nip-number>\"]"
+                }
+              },
+              {
+                "if": {
+                  "type": "array",
+                  "items": [
+                    {
+                      "const": "R"
+                    }
+                  ]
+                },
+                "then": {
+                  "type": "array",
+                  "minItems": 2,
+                  "maxItems": 2,
+                  "items": [
+                    {
+                      "const": "R"
+                    },
+                    {
+                      "type": "string",
+                      "pattern": "^!?[a-z][a-z0-9]*$"
+                    }
+                  ],
+                  "errorMessage": "R tag must be [\"R\", \"<requirement>\"] with optional ! negation prefix"
+                }
+              },
+              {
+                "if": {
+                  "type": "array",
+                  "items": [
+                    {
+                      "const": "t"
+                    }
+                  ]
+                },
+                "then": {
+                  "type": "array",
+                  "minItems": 2,
+                  "maxItems": 2,
+                  "items": [
+                    {
+                      "const": "t"
+                    },
+                    {
+                      "type": "string",
+                      "pattern": "^[a-z][a-z0-9-]*$"
+                    }
+                  ],
+                  "errorMessage": "t tag must be [\"t\", \"<lowercase-topic>\"]"
+                }
+              },
+              {
+                "if": {
+                  "type": "array",
+                  "items": [
+                    {
+                      "const": "k"
+                    }
+                  ]
+                },
+                "then": {
+                  "type": "array",
+                  "minItems": 2,
+                  "maxItems": 2,
+                  "items": [
+                    {
+                      "const": "k"
+                    },
+                    {
+                      "type": "string",
+                      "pattern": "^!?[0-9]+$"
+                    }
+                  ],
+                  "errorMessage": "k tag must be [\"k\", \"<kind-number>\"] with optional ! negation prefix"
+                }
+              },
+              {
+                "if": {
+                  "type": "array",
+                  "items": [
+                    {
+                      "const": "g"
+                    }
+                  ]
+                },
+                "then": {
+                  "type": "array",
+                  "minItems": 2,
+                  "maxItems": 2,
+                  "items": [
+                    {
+                      "const": "g"
+                    },
+                    {
+                      "type": "string",
+                      "pattern": "^[0-9bcdefghjkmnpqrstuvwxyz]+$"
+                    }
+                  ],
+                  "errorMessage": "g tag must be [\"g\", \"<geohash>\"]"
+                }
+              },
+              {
+                "if": {
+                  "type": "array",
+                  "items": [
+                    {
+                      "const": "l"
+                    }
+                  ]
+                },
+                "then": {
+                  "type": "array",
+                  "minItems": 3,
+                  "items": [
+                    {
+                      "const": "l"
+                    },
+                    {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  ],
+                  "additionalItems": false,
+                  "errorMessage": "l tag must be [\"l\", \"<value>\", \"<namespace>\"]"
+                }
+              }
+            ]
           }
         }
       },

@@ -36,7 +36,10 @@
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -186,6 +189,22 @@
               },
               "errorMessage": {
                 "contains": "tags must include at least one p tag for the message receiver"
+              }
+            },
+            {
+              "not": {
+                "contains": {
+                  "type": "array",
+                  "minItems": 1,
+                  "items": [
+                    {
+                      "const": "e"
+                    }
+                  ]
+                }
+              },
+              "errorMessage": {
+                "not": "e tags must not be used in kind 24 public messages"
               }
             }
           ]

@@ -26,8 +26,8 @@
             },
             {
               "type": "string",
-              "pattern": "^[a-f0-9]{64}$",
-              "description": "Hex-encoded KeyPackageRef (SHA-256 hash of the KeyPackage)"
+              "pattern": "^(?:[a-f0-9]{64}|[a-f0-9]{96}|[a-f0-9]{128})$",
+              "description": "Hex-encoded KeyPackageRef — length depends on ciphersuite hash (SHA-256: 64, SHA-384: 96, SHA-512: 128 hex chars)"
             }
           ],
           "additionalItems": false,

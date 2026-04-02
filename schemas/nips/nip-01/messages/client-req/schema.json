@@ -6,7 +6,10 @@
     },
     {
       "type": "string",
-      "description": "An identifier for the subscription, this should be unique."
+      "minLength": 1,
+      "maxLength": 64,
+      "description": "An arbitrary, non-empty string of max length 64 chars.",
+      "errorMessage": "subscription_id must be a non-empty string of at most 64 characters"
     },
     {
       "allOf": [

@@ -41,11 +41,12 @@
     },
     "relay_countries": {
       "type": "array",
-      "items": [
-        {
-          "type": "string"
-        }
-      ]
+      "items": {
+        "type": "string",
+        "pattern": "^[A-Z]{2}$"
+      },
+      "description": "ISO 3166-1 alpha-2 country codes (e.g., US, DE, JP)",
+      "errorMessage": "relay_countries must be an array of two-letter uppercase ISO 3166-1 alpha-2 country codes"
     },
     "software": {
       "type": "string",

@@ -1,0 +1,41 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "MIP-05 Version",
+  "allOf": [
+    {
+      "allOf": [
+        {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": false
+        }
+      ]
+    },
+    {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 2,
+      "items": [
+        {
+          "const": "v"
+        },
+        {
+          "type": "string",
+          "enum": [
+            "mip05-v1"
+          ],
+          "description": "MIP-05 protocol version identifier"
+        }
+      ],
+      "additionalItems": false,
+      "errorMessage": {
+        "minItems": "v tag must have exactly two elements: ['v', <version>]",
+        "maxItems": "v tag must have exactly two elements: ['v', <version>]"
+      }
+    }
+  ],
+  "$id": "https://nostrability.github.io/schemata/tag/v.json"
+}

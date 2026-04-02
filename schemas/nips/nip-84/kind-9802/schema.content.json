@@ -1,0 +1,7 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "kind9802Content",
+  "x-content-encoding": "plaintext",
+  "description": "Highlighted text (NIP-84). MAY be empty for non-text media highlights.",
+  "type": "string"
+}

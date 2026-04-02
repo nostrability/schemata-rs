@@ -1,0 +1,42 @@
+{
+  "allOf": [
+    {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "KeyPackage Identifier",
+      "allOf": [
+        {
+          "allOf": [
+            {
+              "$schema": "http://json-schema.org/draft-07/schema#",
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "uniqueItems": false
+            }
+          ]
+        },
+        {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "items": [
+            {
+              "const": "d"
+            },
+            {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$",
+              "description": "Cryptographically random 32-byte hex identifier for relay-native KeyPackage rotation"
+            }
+          ],
+          "additionalItems": false,
+          "errorMessage": {
+            "minItems": "d tag must have exactly two elements: ['d', <hex-identifier>]",
+            "maxItems": "d tag must have exactly two elements: ['d', <hex-identifier>]"
+          }
+        }
+      ]
+    }
+  ]
+}

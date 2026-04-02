@@ -31,7 +31,10 @@
           "description": "The id is a hash derived as specified in NIP-01"
         },
         "kind": {
-          "type": "integer"
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 65535,
+          "errorMessage": "kind must be an integer between 0 and 65535"
         },
         "pubkey": {
           "allOf": [

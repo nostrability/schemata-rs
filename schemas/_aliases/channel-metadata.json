@@ -1,0 +1,38 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "channelMetadata",
+  "description": "Channel metadata object shared by kind:40 and kind:41 (NIP-28)",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Channel name"
+    },
+    "about": {
+      "type": "string",
+      "description": "Channel description"
+    },
+    "picture": {
+      "type": "string",
+      "format": "uri",
+      "description": "Channel picture URL"
+    },
+    "relays": {
+      "type": "array",
+      "items": {
+        "allOf": [
+          {
+            "$schema": "http://json-schema.org/draft-07/schema#",
+            "title": "relayUrl",
+            "type": "string",
+            "pattern": "^wss?://[a-zA-Z0-9._-]+(?::[0-9]+)?(?:/.*)?$",
+            "description": "WebSocket relay URL (ws:// or wss:// with valid hostname)",
+            "errorMessage": "must be a valid relay URL (ws:// or wss:// with valid hostname)"
+          }
+        ]
+      },
+      "description": "Recommended relay URLs for the channel"
+    }
+  },
+  "additionalProperties": true
+}

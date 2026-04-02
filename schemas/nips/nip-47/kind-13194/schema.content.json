@@ -1,0 +1,14 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "kind13194Content",
+  "x-content-encoding": "plaintext",
+  "description": "Space-separated list of supported NWC methods (NIP-47).",
+  "type": "string",
+  "pattern": "^[a-z_]+( [a-z_]+)*$",
+  "minLength": 1,
+  "errorMessage": {
+    "type": "content must be a string",
+    "pattern": "content must contain only lowercase method names with underscores, separated by single spaces",
+    "minLength": "content must not be empty"
+  }
+}

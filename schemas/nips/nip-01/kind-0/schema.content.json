@@ -1,6 +1,8 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "title": "Metadata Event Schema",
+  "title": "kind0Content",
+  "x-content-encoding": "json-stringified",
+  "description": "Profile metadata (NIP-01). Decoded from event content via JSON.parse().",
   "type": "object",
   "properties": {
     "name": {

@@ -1,0 +1,12 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "kind30023Content",
+  "x-content-encoding": "plaintext",
+  "description": "Markdown-formatted long-form article body (NIP-23).",
+  "type": "string",
+  "minLength": 1,
+  "errorMessage": {
+    "type": "content must be a string",
+    "minLength": "content must not be empty"
+  }
+}

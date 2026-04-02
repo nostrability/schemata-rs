@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "kind443",
-  "description": "Marmot KeyPackage event (MIP-00)",
+  "description": "Marmot KeyPackage event (MIP-00). DEPRECATED: being replaced by kind:30443 (addressable KeyPackage). Cutover scheduled May 1, 2026.",
   "allOf": [
     {
       "allOf": [
@@ -36,7 +36,10 @@
               "description": "The id is a hash derived as specified in NIP-01"
             },
             "kind": {
-              "type": "integer"
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535,
+              "errorMessage": "kind must be an integer between 0 and 65535"
             },
             "pubkey": {
               "allOf": [
@@ -462,8 +465,8 @@
                           },
                           {
                             "type": "string",
-                            "pattern": "^[a-f0-9]{64}$",
-                            "description": "Hex-encoded KeyPackageRef (SHA-256 hash of the KeyPackage)"
+                            "pattern": "^(?:[a-f0-9]{64}|[a-f0-9]{96}|[a-f0-9]{128})$",
+                            "description": "Hex-encoded KeyPackageRef — length depends on ciphersuite hash (SHA-256: 64, SHA-384: 96, SHA-512: 128 hex chars)"
                           }
                         ],
                         "additionalItems": false,

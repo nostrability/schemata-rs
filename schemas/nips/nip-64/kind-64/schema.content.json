@@ -1,0 +1,12 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "kind64Content",
+  "x-content-encoding": "plaintext",
+  "description": "PGN (Portable Game Notation) chess game string (NIP-64). Full PGN parsing is beyond JSON Schema scope.",
+  "type": "string",
+  "minLength": 1,
+  "errorMessage": {
+    "type": "content must be a string",
+    "minLength": "content must not be empty"
+  }
+}
